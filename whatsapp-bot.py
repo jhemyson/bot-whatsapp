@@ -3,9 +3,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
 from sys import exit
 
+
 import pandas as pd
 import time
 import urllib
+
+print("#######################")
+print("Iniciando o programa...")
 
 driver = webdriver.Chrome(ChromeDriverManager().install())
 driver.get("https://web.whatsapp.com/")
@@ -28,16 +32,17 @@ def esperar_carregar_whatsaspp():
 print("Aguardando leitura do QR Code...")
 esperar_carregar_whatsaspp()
 
-contatos = ler_excel("./contatos.xlsx")
+xls = input("Digite o caminho do arquivo: ")
+
+contatos = ler_excel(xls)
 print("Carregando contatos...")
 mensagem = contatos["mensagem"][0]
 time.sleep(2)
 
-
-
+print(str(len(contatos["telefone"])) + " contato(s) contrado(s)")
 print("Enviando mensagens...")
 
-print(str(len(contatos["telefone"])) + " contato(s) contrado(s)")
+
 enviados = 0
 total_erros = 0
 contatos_erros = []
@@ -79,4 +84,4 @@ else:
 
 time.sleep(5)
 print("Programa finalizado!")
-
+exit()
